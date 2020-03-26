@@ -24,9 +24,6 @@ stdenv.mkDerivation {
 
     mkdir -p ./native/${ocaml-version}/bin
     ln -sf ${ocaml}/bin/*  ./native/${ocaml-version}/bin
-
-    rm -f vendor/ninja/snapshot/ninja.linux
-    cp ${custom-ninja}/bin/ninja vendor/ninja/snapshot/ninja.linux
   '';
 
   dontConfigure = true;
@@ -39,11 +36,13 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
 
-    cp -rf jscomp lib vendor odoc_gen native $out
+    cp -rf jscomp lib linux vendor odoc_gen native $out
     cp bsconfig.json package.json $out
 
-    ln -s $out/lib/bsb $out/bin/bsb
-    ln -s $out/lib/bsc $out/bin/bsc
-    ln -s $out/lib/bsrefmt $out/bin/bsrefmt
+    ln -s $out/linux/bsb.exe $out/bin/bsb
+    ln -s $out/linux/bsb_helper.exe $out/bin/bsb_helper
+    ln -s $out/linux/bsc.exe $out/bin/bsc
+    ln -s $out/linux/refmt.exe $out/bin/bsrefmt
+    ln -s $out/linux/refmt.exe $out/bin/refmt
   '';
 }
